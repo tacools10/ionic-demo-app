@@ -10,43 +10,37 @@ import { Platform } from 'ionic-angular';
 })
 export class HomePage {
 
-  coords2: string;
-  accuracy2: string;
+  coords2: any;
+  accuracy2: any;
   error2: any;
+  position: Position;
 
-// onSuccess Callback
-  // This method accepts a Position object, which contains the
-  // current GPS coordinates
-  //
-  onSuccess (position: any): void {
-    alert('Latitude: '          + position.coords.latitude          + '\n' +
-      'Longitude: '         + position.coords.longitude         + '\n' +
-      'Altitude: '          + position.coords.altitude          + '\n' +
-      'Accuracy: '          + position.coords.accuracy          + '\n' +
-      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-      'Heading: '           + position.coords.heading           + '\n' +
-      'Speed: '             + position.coords.speed             + '\n' +
-      'Timestamp: '         + position.timestamp                + '\n');
-      this.coords2 = position.coords.latitude + ' ' + position.coords.longitude;
-      this.accuracy2 = position.coords.accuracy;
-  }
 
-  // onError Callback receives a PositionError object
-  //
-  onError(error: any): void {
-    alert('code: '    + error.code    + '\n' +
-      'message: ' + error.message + '\n');
-    this.error2 = 'Error getting location: ' + error;
-  }
-
-  constructor() {
+  constructor(private geolocation: Geolocation) {
     this.coords2 = '';
     this.accuracy2 = '';
 
   }
 
   watch() {
-    navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
+    this.geolocation.getCurrentPosition().then((resp) => {
+        this.position = resp;
+        this.accuracy2 = resp.coords.accuracy;
+        this.coords2 = resp.coords.latitude + ' ' + resp.coords.longitude;
+      alert('Latitude: '          + resp.coords.latitude          + '\n' +
+        'Longitude: '         + resp.coords.longitude         + '\n' +
+        'Altitude: '          + resp.coords.altitude          + '\n' +
+        'Accuracy: '          + resp.coords.accuracy          + '\n' +
+        'Altitude Accuracy: ' + resp.coords.altitudeAccuracy  + '\n' +
+        'Heading: '           + resp.coords.heading           + '\n' +
+        'Speed: '             + resp.coords.speed             + '\n' +
+        'Timestamp: '         + resp.timestamp               + '\n');
+      }).catch((error) => {
+      alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+        this.error2 = 'Error getting location: ' + error;
+      });
   }
+
 
 }

@@ -5,10 +5,9 @@
     <ion-card-content>
       <button ion-button (click)=watch()>
         Get Position</button>
-        <p>Position: {{ coords2 }}</p>
-        <p>Accuracy: {{ accuracy2 }} meters</p>
-
-      <p *ngIf="error">{{ error2 }}</p>
+        <p>Position: {{ this.coords2 }}</p>
+        <p>Accuracy: {{ this.accuracy2 }} meters</p>
+        <p *ngIf="error">{{ error2 }}</p>
     </ion-card-content>
   </ion-card>
 
