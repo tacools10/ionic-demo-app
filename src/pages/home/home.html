@@ -1,14 +1,14 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-</ion-content>
+
+
+  <ion-card>
+    <ion-card-content>
+      <button ion-button (click)=watch()>
+        Get Position</button>
+        <p>Position: {{ coords2 }}</p>
+        <p>Accuracy: {{ accuracy2 }} meters</p>
+
+      <p *ngIf="error">{{ error2 }}</p>
+    </ion-card-content>
+  </ion-card>
+
